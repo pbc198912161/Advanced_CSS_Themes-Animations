@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced CSS Themes & Animations</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/accessibility.css" />
+</head>
+<body>
+
+  <!-- =====================
+       SKIP LINK (Accessibility)
+  ===================== -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- =====================
+       NAVBAR
+  ===================== -->
+  <header class="navbar" role="banner">
+    <div class="navbar-inner container">
+
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">CSSThemes</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" role="list">
+          <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
+          <li><a href="pages/components.html" class="nav-link">Components</a></li>
+          <li><a href="pages/animations.html" class="nav-link">Animations</a></li>
+          <li><a href="pages/accessibility.html" class="nav-link">Accessibility</a></li>
+        </ul>
+      </nav>
+
+      <div class="navbar-actions">
+        <!-- Theme Switcher -->
+        <div class="theme-switcher" role="group" aria-label="Choose colour theme">
+          <button class="theme-btn active" data-theme="dark"   aria-pressed="true"  title="Dark theme">🌙</button>
+          <button class="theme-btn"        data-theme="light"  aria-pressed="false" title="Light theme">☀️</button>
+          <button class="theme-btn"        data-theme="ocean"  aria-pressed="false" title="Ocean theme">🌊</button>
+          <button class="theme-btn"        data-theme="forest" aria-pressed="false" title="Forest theme">🌿</button>
+        </div>
+
+        <!-- Mobile menu toggle -->
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="pages/components.html" class="nav-link">Components</a></li>
+        <li><a href="pages/animations.html" class="nav-link">Animations</a></li>
+        <li><a href="pages/accessibility.html" class="nav-link">Accessibility</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- =====================
+       MAIN CONTENT
+  ===================== -->
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-inner">
+        <div class="hero-text animate-fade-up">
+          <span class="eyebrow">Advanced CSS · Intermediate Project</span>
+          <h1 id="hero-heading" class="hero-title">
+            Themes,<br/>
+            <span class="text-gradient">Animations</span><br/>
+            & Motion.
+          </h1>
+          <p class="hero-sub">
+            A theming system built with CSS custom properties, four switchable colour modes,
+            keyframe animations, responsive Grid/Flexbox layouts, and full accessibility support
+            including <code>prefers-reduced-motion</code>.
+          </p>
+          <div class="hero-cta">
+            <a href="pages/components.html" class="btn btn-primary">Explore Components</a>
+            <a href="pages/animations.html" class="btn btn-ghost">See Animations</a>
+          </div>
+        </div>
+
+        <div class="hero-visual animate-fade-left" aria-hidden="true">
+          <div class="theme-orbs">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+          </div>
+          <div class="floating-cards">
+            <div class="float-card float-card-1">
+              <span class="float-icon">🎨</span>
+              <span>4 Themes</span>
+            </div>
+            <div class="float-card float-card-2">
+              <span class="float-icon">⚡</span>
+              <span>CSS Variables</span>
+            </div>
+            <div class="float-card float-card-3">
+              <span class="float-icon">♿</span>
+              <span>A11y Ready</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THEME SHOWCASE -->
+    <section class="section" aria-labelledby="themes-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="section-label">01 — Theme System</span>
+          <h2 id="themes-heading">CSS Variables Power Everything</h2>
+          <p>Switch any of the 4 themes above. Every colour, shadow, and surface updates instantly via <code>data-theme</code> on the root element and CSS custom properties.</p>
+        </div>
+
+        <div class="theme-demo-grid animate-stagger">
+          <div class="theme-swatch-card" data-demo-theme="dark">
+            <div class="swatch-preview dark-preview">
+              <div class="swatch-nav"></div>
+              <div class="swatch-card"></div>
+              <div class="swatch-card sm"></div>
+            </div>
+            <h3>Dark</h3>
+            <p>Deep navy background, indigo accents, high contrast text for late-night work.</p>
+            <code>data-theme="dark"</code>
+          </div>
+          <div class="theme-swatch-card" data-demo-theme="light">
+            <div class="swatch-preview light-preview">
+              <div class="swatch-nav"></div>
+              <div class="swatch-card"></div>
+              <div class="swatch-card sm"></div>
+            </div>
+            <h3>Light</h3>
+            <p>Warm white surface, slate accents, clean and airy for daytime reading.</p>
+            <code>data-theme="light"</code>
+          </div>
+          <div class="theme-swatch-card" data-demo-theme="ocean">
+            <div class="swatch-preview ocean-preview">
+              <div class="swatch-nav"></div>
+              <div class="swatch-card"></div>
+              <div class="swatch-card sm"></div>
+            </div>
+            <h3>Ocean</h3>
+            <p>Deep teal tones, cyan highlights — calm, focused, like working underwater.</p>
+            <code>data-theme="ocean"</code>
+          </div>
+          <div class="theme-swatch-card" data-demo-theme="forest">
+            <div class="swatch-preview forest-preview">
+              <div class="swatch-nav"></div>
+              <div class="swatch-card"></div>
+              <div class="swatch-card sm"></div>
+            </div>
+            <h3>Forest</h3>
+            <p>Rich greens and amber warmth. Organic, grounded, easy on the eyes.</p>
+            <code>data-theme="forest"</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURE GRID -->
+    <section class="section section-alt" aria-labelledby="features-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="section-label">02 — What's Covered</span>
+          <h2 id="features-heading">All Requirements Met</h2>
+        </div>
+
+        <div class="features-grid animate-stagger">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🎨</div>
+            <h3>Theme Switching</h3>
+            <p>CSS custom properties defined per <code>[data-theme]</code> selector. One attribute change on <code>&lt;html&gt;</code> cascades every colour, surface, and shadow instantly.</p>
+            <a href="pages/components.html" class="feature-link">View components →</a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">📐</div>
+            <h3>Grid & Flexbox</h3>
+            <p>Responsive layouts using CSS Grid for page structure and Flexbox for component internals. Auto-fill columns adapt to any screen width without media query clutter.</p>
+            <a href="pages/components.html" class="feature-link">See layouts →</a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3>Keyframe Animations</h3>
+            <p>Fade-up, slide-in, pulse, float, and shimmer — all defined with <code>@keyframes</code> and applied via utility classes. Transition delays create staggered entrance effects.</p>
+            <a href="pages/animations.html" class="feature-link">See animations →</a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">♿</div>
+            <h3>Accessibility</h3>
+            <p>Visible focus rings, skip links, ARIA roles, keyboard-navigable components, sufficient colour contrast ratios, and full <code>prefers-reduced-motion</code> support.</p>
+            <a href="pages/accessibility.html" class="feature-link">A11y details →</a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🌗</div>
+            <h3>Reduced Motion</h3>
+            <p>The <code>@media (prefers-reduced-motion: reduce)</code> block disables all keyframe animations and transitions for users who have requested less motion in their OS settings.</p>
+            <a href="pages/accessibility.html" class="feature-link">How it works →</a>
+          </article>
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">📱</div>
+            <h3>Fully Responsive</h3>
+            <p>Mobile-first breakpoints at 640px, 768px, and 1024px. The navigation collapses to a hamburger menu and all grids reflow gracefully on small screens.</p>
+            <a href="pages/components.html" class="feature-link">Resize to try →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI ANIMATION PREVIEW -->
+    <section class="section" aria-labelledby="anim-preview-heading">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="section-label">03 — Animation Preview</span>
+          <h2 id="anim-preview-heading">Motion That Communicates</h2>
+          <p>Hover over each card to see micro-interactions. All animations respect <code>prefers-reduced-motion</code>.</p>
+        </div>
+        <div class="anim-preview-grid animate-stagger">
+          <div class="anim-card anim-card-lift">
+            <span class="anim-label">Lift on Hover</span>
+            <code>transform: translateY + box-shadow</code>
+          </div>
+          <div class="anim-card anim-card-glow">
+            <span class="anim-label">Glow Pulse</span>
+            <code>@keyframes glow</code>
+          </div>
+          <div class="anim-card anim-card-border">
+            <span class="anim-label">Border Spin</span>
+            <code>@keyframes border-rotate</code>
+          </div>
+          <div class="anim-card anim-card-shimmer">
+            <span class="anim-label">Shimmer</span>
+            <code>@keyframes shimmer</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Advanced CSS Themes &amp; Animations · Frontend Dev Intermediate Course</p>
+      <p class="footer-meta">CSS Variables · Grid/Flexbox · Keyframe Animations · Accessibility</p>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/nav.js"></script>
+
+</body>
+</html>

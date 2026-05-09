@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animations — Advanced CSS Themes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+  <link rel="stylesheet" href="../css/accessibility.css" />
+  <style>
+    /* Page-specific animation demos */
+    .demo-box {
+      width: 80px; height: 80px;
+      background: var(--gradient-accent);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: var(--shadow-glow);
+      cursor: pointer;
+      margin: 1.5rem auto 0;
+    }
+
+    /* Trigger animation on button click */
+    .trigger-demo { text-align: center; }
+    .trigger-demo .demo-box { margin: 1.5rem auto 1rem; }
+
+    /* Typewriter effect */
+    .typewriter {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      color: var(--color-accent-2);
+      border-right: 2px solid var(--color-accent);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typewriter-expand 2.5s steps(30) 0.5s forwards,
+                 blink 0.75s step-end infinite;
+    }
+    @keyframes typewriter-expand {
+      from { width: 0; }
+      to   { width: 100%; }
+    }
+
+    /* Stagger number items */
+    .stagger-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+    .stagger-item {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 1rem;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .stagger-num {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--color-accent-glow);
+      border: 1px solid var(--color-accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700; color: var(--color-accent-2);
+      flex-shrink: 0;
+    }
+
+    /* Ping demo */
+    .ping-wrap {
+      position: relative;
+      width: 16px; height: 16px;
+      display: inline-block;
+    }
+    .ping-dot {
+      position: absolute;
+      inset: 0;
+      background: var(--color-success);
+      border-radius: 50%;
+      animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+      opacity: 0.6;
+    }
+    .ping-core {
+      position: absolute;
+      inset: 3px;
+      background: var(--color-success);
+      border-radius: 50%;
+    }
+
+    /* Animation code display */
+    .anim-code {
+      background: #0d1117;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.8;
+      color: #c9d1d9;
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+    .kw  { color: #ff7b72; }
+    .fn  { color: #d2a8ff; }
+    .val { color: #a5d6ff; }
+    .cm  { color: #8b949e; }
+    .num { color: #79c0ff; }
+
+    /* Hover animation demos grid */
+    .hover-demos {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .hover-demo-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-text-2);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <header class="navbar" role="banner">
+    <div class="navbar-inner container">
+      <a href="../index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">CSSThemes</span>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul class="nav-links" role="list">
+          <li><a href="../index.html"      class="nav-link">Home</a></li>
+          <li><a href="components.html"    class="nav-link">Components</a></li>
+          <li><a href="animations.html"    class="nav-link active" aria-current="page">Animations</a></li>
+          <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+        </ul>
+      </nav>
+      <div class="navbar-actions">
+        <div class="theme-switcher" role="group" aria-label="Choose colour theme">
+          <button class="theme-btn active" data-theme="dark"   aria-pressed="true"  title="Dark">🌙</button>
+          <button class="theme-btn"        data-theme="light"  aria-pressed="false" title="Light">☀️</button>
+          <button class="theme-btn"        data-theme="ocean"  aria-pressed="false" title="Ocean">🌊</button>
+          <button class="theme-btn"        data-theme="forest" aria-pressed="false" title="Forest">🌿</button>
+        </div>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+          <span class="hamburger" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="mobile-menu" hidden>
+      <ul role="list">
+        <li><a href="../index.html"      class="nav-link">Home</a></li>
+        <li><a href="components.html"    class="nav-link">Components</a></li>
+        <li><a href="animations.html"    class="nav-link">Animations</a></li>
+        <li><a href="accessibility.html" class="nav-link">Accessibility</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="container">
+
+      <div class="page-header animate-fade-up">
+        <span class="eyebrow">Keyframe Animations</span>
+        <h1>Motion & Transitions</h1>
+        <p>Every animation on this page is defined with pure <code>@keyframes</code> CSS. No JavaScript animation libraries. All animations are disabled automatically when the user's OS has "Reduce motion" turned on.</p>
+        <div class="button-row" style="margin-top:1.25rem">
+          <div class="motion-status" aria-live="polite">
+            <span class="motion-dot" aria-hidden="true"></span>
+            <span class="motion-label">Animations active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRANCE ANIMATIONS -->
+      <div class="demo-block animate-on-scroll">
+        <h3>Entrance Animations</h3>
+        <p class="demo-desc">Triggered by IntersectionObserver in js/animations.js · CSS does the actual movement</p>
+        <div class="anim-full-grid animate-stagger">
+          <div class="card" style="text-align:center;padding:2rem 1rem">
+            <div style="font-size:2rem;margin-bottom:0.75rem">⬆️</div>
+            <strong style="font-size:0.9rem">Fade Up</strong>
+            <p class="card-body" style="margin-top:0.4rem">opacity 0→1 + translateY(30px→0)</p>
+          </div>
+          <div class="card" style="text-align:center;padding:2rem 1rem">
+            <div style="font-size:2rem;margin-bottom:0.75rem">➡️</div>
+            <strong style="font-size:0.9rem">Fade Left</strong>
+            <p class="card-body" style="margin-top:0.4rem">opacity 0→1 + translateX(40px→0)</p>
+          </div>
+          <div class="card" style="text-align:center;padding:2rem 1rem">
+            <div style="font-size:2rem;margin-bottom:0.75rem">🔢</div>
+            <strong style="font-size:0.9rem">Stagger</strong>
+            <p class="card-body" style="margin-top:0.4rem">Each child gets +80ms delay</p>
+          </div>
+          <div class="card" style="text-align:center;padding:2rem 1rem">
+            <div style="font-size:2rem;margin-bottom:0.75rem">📐</div>
+            <strong style="font-size:0.9rem">Scale Up</strong>
+            <p class="card-body" style="margin-top:0.4rem">opacity 0→1 + scale(0.9→1)</p>
+          </div>
+        </div>
+        <div class="anim-code">
+<span class="cm">/* css/animations.css */</span><br>
+<span class="kw">@keyframes</span> <span class="fn">fade-up</span> {<br>
+&nbsp;&nbsp;<span class="kw">from</span> { <span class="val">opacity</span>: <span class="num">0</span>; <span class="val">transform</span>: <span class="fn">translateY</span>(<span class="num">30px</span>); }<br>
+&nbsp;&nbsp;<span class="kw">to</span>   { <span class="val">opacity</span>: <span class="num">1</span>; <span class="val">transform</span>: <span class="fn">translateY</span>(<span class="num">0</span>); }<br>
+}<br>
+<span class="kw">.animate-fade-up</span> {<br>
+&nbsp;&nbsp;<span class="val">animation</span>: <span class="fn">fade-up</span> <span class="num">0.6s</span> <span class="fn">var(--ease-out)</span> both;<br>
+}
+        </div>
+      </div>
+
+      <!-- STAGGER LIST -->
+      <div class="demo-block animate-on-scroll">
+        <h3>Stagger Effect</h3>
+        <p class="demo-desc">Parent gets .animate-stagger · JS adds .is-visible · CSS nth-child delays each item</p>
+        <div class="animate-stagger stagger-list">
+          <div class="stagger-item"><span class="stagger-num">1</span> First item — no delay</div>
+          <div class="stagger-item"><span class="stagger-num">2</span> Second item — 80ms delay</div>
+          <div class="stagger-item"><span class="stagger-num">3</span> Third item — 160ms delay</div>
+          <div class="stagger-item"><span class="stagger-num">4</span> Fourth item — 240ms delay</div>
+          <div class="stagger-item"><span class="stagger-num">5</span> Fifth item — 320ms delay</div>
+        </div>
+        <div class="anim-code">
+<span class="kw">.animate-stagger.is-visible</span> > <span class="fn">*:nth-child(1)</span> { <span class="val">transition-delay</span>: <span class="num">0ms</span>;   }<br>
+<span class="kw">.animate-stagger.is-visible</span> > <span class="fn">*:nth-child(2)</span> { <span class="val">transition-delay</span>: <span class="num">80ms</span>;  }<br>
+<span class="kw">.animate-stagger.is-visible</span> > <span class="fn">*:nth-child(3)</span> { <span class="val">transition-delay</span>: <span class="num">160ms</span>; }<br>
+<span class="cm">/* ...and so on */</span>
+        </div>
+      </div>
+
+      <!-- MICRO-INTERACTIONS -->
+      <div class="demo-block animate-on-scroll">
+        <h3>Micro-Interactions — Hover States</h3>
+        <p class="demo-desc">css/animations.css → .hover-lift, .hover-scale, .hover-underline</p>
+        <div class="hover-demos">
+          <div class="hover-demo-card hover-lift">
+            Lift on hover
+            <p style="font-size:0.72rem;color:var(--color-text-3);margin-top:0.3rem;font-weight:400">translateY(-6px)</p>
+          </div>
+          <div class="hover-demo-card hover-scale">
+            Scale on hover
+            <p style="font-size:0.72rem;color:var(--color-text-3);margin-top:0.3rem;font-weight:400">scale(1.04)</p>
+          </div>
+          <div class="hover-demo-card" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem">
+            <span class="hover-underline" style="cursor:pointer">Underline grow</span>
+            <p style="font-size:0.72rem;color:var(--color-text-3);font-weight:400">width 0%→100%</p>
+          </div>
+          <div class="hover-demo-card anim-card-glow">
+            Glow pulse
+            <p style="font-size:0.72rem;color:var(--color-text-3);margin-top:0.3rem;font-weight:400">box-shadow pulse</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPECIAL EFFECTS -->
+      <div class="demo-block animate-on-scroll">
+        <h3>Special Effects</h3>
+        <p class="demo-desc">Typewriter, ping/ripple, shimmer, border rotation</p>
+        <div style="display:flex;flex-direction:column;gap:2rem;margin-top:1rem">
+
+          <div>
+            <p style="font-size:0.8rem;color:var(--color-text-2);margin-bottom:0.75rem">Typewriter — <code>animation: typewriter-expand + blink</code></p>
+            <div class="typewriter">const theme = 'dark'; // CSS Variables!</div>
+          </div>
+
+          <div>
+            <p style="font-size:0.8rem;color:var(--color-text-2);margin-bottom:0.75rem">Ping / Ripple — <code>@keyframes ping · scale(2) + opacity: 0</code></p>
+            <div style="display:flex;align-items:center;gap:1rem">
+              <div class="ping-wrap" aria-hidden="true">
+                <div class="ping-dot"></div>
+                <div class="ping-core"></div>
+              </div>
+              <span style="font-size:0.85rem;color:var(--color-success)">Server online</span>
+            </div>
+          </div>
+
+          <div>
+            <p style="font-size:0.8rem;color:var(--color-text-2);margin-bottom:0.75rem">Shimmer — <code>@keyframes shimmer · left: -100% → 150%</code></p>
+            <div class="anim-card-shimmer card" style="padding:1.5rem">
+              <strong>Shimmer card</strong>
+              <p class="card-body" style="margin-top:0.4rem">A gradient sweeps across on repeat, simulating a loading state or drawing attention.</p>
+            </div>
+          </div>
+
+          <div>
+            <p style="font-size:0.8rem;color:var(--color-text-2);margin-bottom:0.75rem">Rotating border — <code>conic-gradient + @keyframes border-rotate</code></p>
+            <div class="anim-card-border card" style="padding:1.5rem;max-width:280px">
+              <strong>Rotating border</strong>
+              <p class="card-body" style="margin-top:0.4rem">A conic-gradient pseudo-element spins behind the card to create an animated border.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TRANSITION TIMING -->
+      <div class="demo-block animate-on-scroll">
+        <h3>Easing Functions</h3>
+        <p class="demo-desc">css/variables.css → --ease-spring, --ease-smooth, --ease-out · hover each bar</p>
+        <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1rem;max-width:480px">
+          <div>
+            <p style="font-size:0.78rem;color:var(--color-text-2);margin-bottom:6px">--ease-spring <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code> — overshoots then settles</p>
+            <div style="height:10px;background:var(--color-surface-2);border-radius:99px;overflow:hidden;cursor:pointer"
+                 onmouseenter="this.firstElementChild.style.transform='scaleX(1)'"
+                 onmouseleave="this.firstElementChild.style.transform='scaleX(0)'">
+              <div style="height:100%;background:var(--gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1)"></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:0.78rem;color:var(--color-text-2);margin-bottom:6px">--ease-smooth <code>cubic-bezier(0.4, 0, 0.2, 1)</code> — Material Design standard</p>
+            <div style="height:10px;background:var(--color-surface-2);border-radius:99px;overflow:hidden;cursor:pointer"
+                 onmouseenter="this.firstElementChild.style.transform='scaleX(1)'"
+                 onmouseleave="this.firstElementChild.style.transform='scaleX(0)'">
+              <div style="height:100%;background:var(--gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1)"></div>
+            </div>
+          </div>
+          <div>
+            <p style="font-size:0.78rem;color:var(--color-text-2);margin-bottom:6px">--ease-out <code>cubic-bezier(0, 0, 0.2, 1)</code> — fast start, gentle end</p>
+            <div style="height:10px;background:var(--color-surface-2);border-radius:99px;overflow:hidden;cursor:pointer"
+                 onmouseenter="this.firstElementChild.style.transform='scaleX(1)'"
+                 onmouseleave="this.firstElementChild.style.transform='scaleX(0)'">
+              <div style="height:100%;background:var(--gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform 0.6s cubic-bezier(0,0,0.2,1)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p>Advanced CSS Themes &amp; Animations · Animations Page</p>
+      <p class="footer-meta">@keyframes · IntersectionObserver · prefers-reduced-motion</p>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/animations.js"></script>
+  <script src="../js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+/* ============================================================
+   css/layout.css
+   Page-level layout using CSS Grid and Flexbox.
+   Mobile-first — base styles are for small screens,
+   then we add complexity at wider breakpoints.
+============================================================ */
+
+/* ---- Container ---- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;           /* shorthand for margin-left + margin-right */
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px)  { .container { padding-inline: 2rem; } }
+@media (min-width: 1024px) { .container { padding-inline: 2.5rem; } }
+
+/* ---- NAVBAR ---- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(var(--color-bg-rgb, 11,13,23), 0.85);
+  background-color: var(--color-bg-2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  height: var(--nav-height);
+}
+.navbar-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.nav-links {
+  display: none;
+  list-style: none;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+}
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ---- MOBILE MENU ---- */
+.mobile-menu {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem;
+}
+.mobile-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) {
+  .mobile-menu { display: none !important; }
+  .menu-toggle { display: none; }
+}
+
+/* ---- HERO — CSS Grid for two-column layout ---- */
+.hero {
+  min-height: calc(100vh - var(--nav-height));
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-block: 4rem;
+}
+.hero::before {
+  /* Background gradient effect */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+}
+
+/* ---- SECTION LAYOUT ---- */
+.section {
+  padding-block: 5rem;
+}
+.section-alt {
+  background: var(--color-bg-2);
+}
+.section-header {
+  text-align: center;
+  max-width: 660px;
+  margin-inline: auto;
+  margin-bottom: 3.5rem;
+}
+
+/* ---- FEATURES GRID — auto-fill CSS Grid ---- */
+.features-grid {
+  display: grid;
+  /* auto-fill: creates as many columns as fit, min 260px */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ---- THEME DEMO GRID ---- */
+.theme-demo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+@media (min-width: 768px) {
+  .theme-demo-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---- ANIMATION PREVIEW GRID ---- */
+.anim-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ---- FOOTER ---- */
+.footer {
+  border-top: 1px solid var(--color-border);
+  padding-block: 2rem;
+  text-align: center;
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ---- COMPONENTS PAGE GRID ---- */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+@media (min-width: 768px) {
+  .comp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- CARDS DEMO GRID ---- */
+.cards-demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+/* ---- BUTTON ROW — Flexbox ---- */
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* ---- FORM LAYOUT ---- */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 600px) {
+  .form-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- ACCESSIBILITY PAGE ---- */
+.a11y-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+@media (min-width: 768px) {
+  .a11y-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---- ANIMATIONS PAGE ---- */
+.anim-full-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}

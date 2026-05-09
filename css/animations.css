@@ -1,0 +1,301 @@
+/* ============================================================
+   css/animations.css
+   All keyframe animations and transition utilities.
+
+   STRUCTURE:
+   1. @keyframes definitions (the actual animation frames)
+   2. Utility animation classes (apply to any element)
+   3. Entrance animations (triggered by JS on scroll)
+   4. Micro-interaction animations
+   5. Loading/skeleton animations
+============================================================ */
+
+/* ============================================
+   1. KEYFRAME DEFINITIONS
+============================================ */
+
+/* Fade up entrance — used for hero text, section headers */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade left entrance — used for hero visual */
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Fade in simple */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Scale up */
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Floating effect — used on hero orbs and cards */
+@keyframes float-1 {
+  0%, 100% { transform: translateY(0px)   rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(1deg); }
+  66%       { transform: translateY(-6px)  rotate(-1deg); }
+}
+@keyframes float-2 {
+  0%, 100% { transform: translateY(0px)  rotate(0deg); }
+  50%       { transform: translateY(-8px) rotate(2deg); }
+}
+@keyframes float-3 {
+  0%, 100% { transform: translateY(0px)   rotate(0deg); }
+  40%       { transform: translateY(-14px) rotate(-2deg); }
+}
+
+/* Orb drifting motion */
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(20px, -15px) scale(1.05); }
+  66%       { transform: translate(-10px, 10px) scale(0.95); }
+}
+
+/* Glow pulse — used on glow card demo */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-accent-glow), var(--shadow-sm); }
+  50%       { box-shadow: 0 0 30px 8px var(--color-accent-glow), var(--shadow-md); }
+}
+
+/* Border conic rotation */
+@keyframes border-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0%   { left: -100%; }
+  100% { left: 150%; }
+}
+
+/* Skeleton loading shimmer */
+@keyframes skeleton-wave {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* Spin */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Bounce */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(0.8,0,1,1); }
+  50%       { transform: translateY(-18px); animation-timing-function: cubic-bezier(0,0,0.2,1); }
+}
+
+/* Ping — ripple effect */
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+/* Shake — for error states */
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-8px); }
+  40%      { transform: translateX(8px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
+/* Typewriter cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Slide down (mobile menu open) */
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Progress bar fill */
+@keyframes progress-fill {
+  from { width: 0%; }
+  to   { width: var(--target-width, 100%); }
+}
+
+/* Stagger children — class applied to parent, children get delays */
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   2. UTILITY ANIMATION CLASSES
+   Apply any of these to any element.
+============================================ */
+
+.animate-fade-in   { animation: fade-in  0.5s var(--ease-out) both; }
+.animate-fade-up   { animation: fade-up  0.6s var(--ease-out) both; }
+.animate-fade-left { animation: fade-left 0.7s var(--ease-out) 0.3s both; }
+.animate-scale-up  { animation: scale-up 0.5s var(--ease-spring) both; }
+.animate-spin      { animation: spin 1s linear infinite; }
+.animate-bounce    { animation: bounce 1s infinite; }
+.animate-shake     { animation: shake 0.5s var(--ease-smooth); }
+.animate-pulse     { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* Delay utilities */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Duration utilities */
+.duration-fast   { animation-duration: 0.2s; }
+.duration-base   { animation-duration: 0.4s; }
+.duration-slow   { animation-duration: 0.8s; }
+.duration-slower { animation-duration: 1.2s; }
+
+/* ============================================
+   3. SCROLL-TRIGGERED ENTRANCE ANIMATIONS
+   JS adds .is-visible when element enters viewport.
+============================================ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.animate-stagger > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.animate-stagger.is-visible > * { opacity: 1; transform: translateY(0); }
+.animate-stagger.is-visible > *:nth-child(1) { transition-delay: 0ms;   }
+.animate-stagger.is-visible > *:nth-child(2) { transition-delay: 80ms;  }
+.animate-stagger.is-visible > *:nth-child(3) { transition-delay: 160ms; }
+.animate-stagger.is-visible > *:nth-child(4) { transition-delay: 240ms; }
+.animate-stagger.is-visible > *:nth-child(5) { transition-delay: 320ms; }
+.animate-stagger.is-visible > *:nth-child(6) { transition-delay: 400ms; }
+
+/* ============================================
+   4. MICRO-INTERACTION TRANSITIONS
+============================================ */
+
+/* Smooth hover lift — add to any card */
+.hover-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+
+/* Scale on hover */
+.hover-scale {
+  transition: transform var(--transition-spring);
+}
+.hover-scale:hover { transform: scale(1.04); }
+
+/* Underline grow on hover */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0%; height: 2px;
+  background: var(--color-accent);
+  transition: width var(--transition-base);
+  border-radius: 2px;
+}
+.hover-underline:hover::after { width: 100%; }
+
+/* ============================================
+   5. SKELETON LOADING
+============================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-border-2)  50%,
+    var(--color-surface-2) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-wave 1.8s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+.skeleton-text  { height: 1em;   width: 100%;  }
+.skeleton-title { height: 1.6em; width: 70%;   }
+.skeleton-thumb { height: 120px; width: 100%;  }
+.skeleton-avatar { height: 40px; width: 40px; border-radius: 50%; }
+
+/* ============================================
+   6. PROGRESS BAR
+============================================ */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--gradient-accent);
+  border-radius: var(--radius-full);
+  animation: progress-fill 1.5s var(--ease-out) forwards;
+  animation-delay: 0.3s;
+}
+
+/* ============================================
+   7. TOOLTIP
+============================================ */
+.tooltip-wrap {
+  position: relative;
+  display: inline-block;
+}
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-2);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 50;
+}
+.tooltip-wrap:hover .tooltip,
+.tooltip-wrap:focus-within .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}

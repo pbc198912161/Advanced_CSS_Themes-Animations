@@ -1,0 +1,271 @@
+/* ============================================================
+   css/accessibility.css
+   Accessibility-first styles.
+
+   KEY REQUIREMENTS COVERED:
+   1. Skip link — jump to main content
+   2. Visible focus rings — keyboard navigation
+   3. Colour contrast — text always readable
+   4. prefers-reduced-motion — disable ALL animations
+   5. prefers-color-scheme — optional OS-level theme
+   6. High contrast mode support
+   7. Screen reader utilities
+============================================================ */
+
+/* ============================================
+   1. SKIP LINK
+   Invisible until focused — lets keyboard users
+   jump straight to main content, skipping the nav.
+============================================ */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  background: var(--color-accent);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: top 0.2s ease;
+  text-decoration: none;
+}
+/* Only visible when focused — critical for keyboard users */
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   2. FOCUS RINGS
+   The browser's default outline is often removed
+   by CSS resets. We add back a clear, styled ring.
+
+   :focus-visible only shows the ring when navigating
+   by keyboard, not on mouse click. Best of both worlds.
+============================================ */
+
+/* Remove default outline (we add our own) */
+*:focus { outline: none; }
+
+/* Our custom focus ring — appears on keyboard navigation */
+*:focus-visible {
+  outline: 2.5px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 5px var(--color-accent-glow);
+}
+
+/* Buttons get a slightly larger ring */
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2.5px solid var(--color-accent);
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px var(--color-accent-glow);
+}
+
+/* Form inputs */
+.form-input:focus-visible,
+.form-select:focus-visible,
+.form-textarea:focus-visible {
+  outline: none; /* handled by border + box-shadow in components.css */
+}
+
+/* Nav links */
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================
+   3. COLOUR CONTRAST HELPERS
+   These ensure text always meets WCAG AA (4.5:1 ratio)
+============================================ */
+.text-high-contrast {
+  color: var(--color-text);
+}
+.text-mid-contrast {
+  color: var(--color-text-2);
+}
+
+/* Ensure links have sufficient contrast */
+a:not(.btn):not(.nav-link) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* ============================================
+   4. PREFERS-REDUCED-MOTION
+   This is the most important accessibility feature
+   for users with vestibular disorders or epilepsy.
+
+   When a user sets "Reduce motion" in their OS,
+   this media query fires and disables ALL animations.
+============================================ */
+@media (prefers-reduced-motion: reduce) {
+
+  /* Disable all CSS animations and transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration:        0.01ms !important;
+    animation-iteration-count: 1      !important;
+    transition-duration:       0.01ms !important;
+    scroll-behavior:           auto   !important;
+  }
+
+  /* Specifically target our custom classes */
+  .animate-fade-up,
+  .animate-fade-left,
+  .animate-fade-in,
+  .animate-scale-up,
+  .animate-bounce,
+  .animate-spin,
+  .animate-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Scroll animations — make them instantly visible */
+  .animate-on-scroll,
+  .animate-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Orbs and floating elements */
+  .orb, .float-card-1, .float-card-2, .float-card-3 {
+    animation: none !important;
+  }
+
+  /* Skeleton loading — just show a static colour */
+  .skeleton {
+    animation: none !important;
+    background: var(--color-surface-2) !important;
+  }
+
+  /* Progress bar — just show it at final width */
+  .progress-fill {
+    animation: none !important;
+    width: var(--target-width, 100%) !important;
+  }
+
+  /* Hover lifts — remove transform */
+  .hover-lift:hover, .card:hover, .feature-card:hover {
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   5. PREFERS-COLOR-SCHEME
+   Respect OS dark/light preference as a fallback.
+   Our JS theme switcher takes priority if user picks.
+   This only applies if they haven't chosen a theme.
+============================================ */
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) {
+    /* Automatically use light theme if OS is in light mode
+       and user hasn't picked a theme yet */
+    color-scheme: light;
+  }
+}
+
+/* ============================================
+   6. FORCED COLORS / HIGH CONTRAST MODE
+   Windows High Contrast Mode overrides all colours.
+   We add explicit borders so elements stay visible.
+============================================ */
+@media (forced-colors: active) {
+  .btn {
+    border: 2px solid ButtonText;
+  }
+  .card,
+  .feature-card,
+  .demo-block {
+    border: 1px solid CanvasText;
+  }
+  .skip-link {
+    border: 2px solid ButtonText;
+  }
+}
+
+/* ============================================
+   7. SCREEN READER UTILITIES
+   .sr-only — visually hidden but readable by screen readers.
+   Use for icon-only buttons, decorative separators, etc.
+============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Make it visible again when focused (for skip links style elements) */
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ============================================
+   8. LIVE REGION (for dynamic announcements)
+   Screen readers announce content in [aria-live]
+   regions when they change.
+============================================ */
+[aria-live] {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+[aria-live].visible {
+  position: static;
+  width: auto; height: auto;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ============================================
+   9. MOTION INDICATOR (UI element shown on page)
+============================================ */
+.motion-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--color-text-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 0.4rem 1rem;
+}
+.motion-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  animation: ping 1.5s cubic-bezier(0,0,0.2,1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-dot {
+    background: var(--color-warning);
+    animation: none;
+  }
+  .motion-status .motion-label::after { content: ' (reduced)'; }
+}
